@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NUTRICHEF - Futuristic Recipe Finder</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="logo">NUTRICHEF</h1>
+      <nav>
+        <ul>
+          <li><a href="login.html" id="logout-btn">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="hero">
+        <h2>Discover Nutrichef Recipes</h2>
+        <p>Enter an ingredient to find amazing meals from the nutrichef!</p>
+        <form action="results.html" method="get" id="search-form">
+          <div class="search-box">
+            <input type="text" class="search-input" placeholder="Enter an ingredient" id="search-input" name="ingredient" required>
+            <button type="submit" class="search-btn" id="search-btn">
+              <i class="fas fa-search"></i> Search
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2024 NUTRICHEF. All rights reserved.</p>
+    </footer>
+  </div>
+  <script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyD_lO-i7oyO6_xAqPZzYb8cLVkrvIJ2ON0",
+        authDomain: "loginpage-18c87.firebaseapp.com",
+        projectId: "loginpage-18c87",
+        storageBucket: "loginpage-18c87.appspot.com",
+        messagingSenderId: "418152549038",
+        appId: "1:418152549038:web:e024892207eca2f4a87b3f",
+        measurementId: "G-N20SLT70Y1"
+    };
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Check user authentication
+    auth.onAuthStateChanged((user) => {
+      if (!user) {
+        // Redirect to login page if not authenticated
+        window.location.href = 'login.html';
+      }
+    });
+
+    // Logout functionality
+    document.getElementById('logout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      auth.signOut().then(() => {
+        window.location.href = 'login.html';
+      }).catch((error) => {
+        console.error('Logout error:', error);
+      });
+    });
+  </script>
+</body>
+</html>
